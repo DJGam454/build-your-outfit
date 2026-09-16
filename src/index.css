@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap");
+@import "tailwindcss";
+
+@theme {
+	--color-paper: #f2f0ea;
+	--color-card: #fbfaf7;
+	--color-ink: #1b1a18;
+	--color-soft: #6f6a61;
+	--color-line: #ddd8ce;
+	--color-accent: #b4542c;
+	--font-display: "Instrument Serif", Georgia, serif;
+	--font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html,
+body,
+#root {
+	height: 100%;
+}
+
+body {
+	background: var(--color-paper);
+	color: var(--color-ink);
+	font-family: var(--font-sans);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overscroll-behavior: none;
+}
+
+.stage canvas {
+	touch-action: none;
+	display: block;
+	cursor: grab;
+}
+
+.stage canvas:active {
+	cursor: grabbing;
+}
+
+.vignette {
+	background:
+		radial-gradient(
+			120% 90% at 50% 40%,
+			transparent 55%,
+			rgba(74, 66, 56, 0.1) 100%
+		);
+}
+
+.no-scrollbar {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+input[type="range"].sleek {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 2px;
+	border-radius: 999px;
+	background: var(--color-line);
+	outline: none;
+}
+
+input[type="range"].sleek::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 17px;
+	height: 17px;
+	border-radius: 999px;
+	background: var(--color-ink);
+	border: 3px solid var(--color-card);
+	box-shadow: 0 2px 8px rgba(27, 26, 24, 0.25);
+	cursor: grab;
+	transition: transform 0.18s ease;
+}
+
+input[type="range"].sleek::-webkit-slider-thumb:hover {
+	transform: scale(1.12);
+}
+
+input[type="range"].sleek::-webkit-slider-thumb:active {
+	cursor: grabbing;
+	transform: scale(1.04);
+}
+
+input[type="range"].sleek::-moz-range-thumb {
+	width: 17px;
+	height: 17px;
+	border-radius: 999px;
+	background: var(--color-ink);
+	border: 3px solid var(--color-card);
+	box-shadow: 0 2px 8px rgba(27, 26, 24, 0.25);
+	cursor: grab;
+}
