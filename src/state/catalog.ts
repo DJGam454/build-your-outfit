@@ -91,7 +91,6 @@ export const OUTFITS: Outfit[] = [
 			top: "long",
 			bottom: "trousers",
 			hood: true,
-			pocket: true,
 			shoes: "sneakers",
 		}),
 		colorways: [
@@ -154,7 +153,6 @@ export const OUTFITS: Outfit[] = [
 			bottom: "trousers",
 			lapel: true,
 			buttons: true,
-			pocket: true,
 			shoes: "boots",
 		}),
 		colorways: [
