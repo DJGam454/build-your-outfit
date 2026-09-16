@@ -813,13 +813,6 @@ export function buildAccessories(rig: HumanRig, outfit: Outfit) {
 		group.add(mesh)
 	}
 
-	if (g.belt) {
-		const belt = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 48, 1, true), rig.materials.cloth.accent)
-		belt.scale.set(a.waistHalfW + 0.018, 0.032 * h, a.waistHalfD + 0.018)
-		belt.position.set(0, a.waistY, 0)
-		add(belt, "accent")
-	}
-
 	if (g.pocket) {
 		const pocket = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), rig.materials.cloth.top)
 		pocket.scale.set(a.waistHalfW * 1.4, 0.085 * h, 0.03)
