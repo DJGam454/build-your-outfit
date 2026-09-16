@@ -43,7 +43,7 @@ const STOPS: TourStop[] = [
 	{
 		anchor: "panel",
 		title: "Then, the wardrobe",
-		body: "The last step is clothes. Choose a look, pick a palette - or let the mannequin stay bare. Your look can be saved as a picture at the end.",
+		body: "The last step is clothes. Choose a look, pick a palette - or let the body stay bare. Your look can be saved as a picture at the end.",
 	},
 	{
 		anchor: "guide",
