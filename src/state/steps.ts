@@ -59,8 +59,8 @@ export const STEP_META: Record<StepId, StepMeta> = {
 	},
 	skin: {
 		kicker: "Step 06",
-		title: "A tone for the mannequin.",
-		subtitle: "Only the mannequin. Fabric colors come next.",
+		title: "A tone for the skin.",
+		subtitle: "Only the body. Fabric colors come next.",
 	},
 	outfit: {
 		kicker: "Step 07",

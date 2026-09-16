@@ -73,6 +73,8 @@ export interface Anchors {
 	hipHalfD: number
 	waistHalfW: number
 	waistHalfD: number
+	chestHalfW: number
+	chestHalfD: number
 }
 
 export interface HumanRig {
@@ -361,8 +363,11 @@ export function prepareRig(scene: THREE.Object3D): HumanRig {
 	let hipHalfD = 0
 	let waistHalfW = 0
 	let waistHalfD = 0
+	let chestHalfW = 0
+	let chestHalfD = 0
 	const hipYApprox = local("mixamorigHips").y
 	const waistYApprox = local("mixamorigSpine").y
+	const chestYApprox = local("mixamorigSpine2").y
 	for (let v = 0; v < regionOfVertex.length; v++) {
 		const region = regionOfVertex[v]
 		const x = basePosition[v * 3]
@@ -381,6 +386,10 @@ export function prepareRig(scene: THREE.Object3D): HumanRig {
 				waistHalfW = Math.max(waistHalfW, Math.abs(x))
 				waistHalfD = Math.max(waistHalfD, Math.abs(z))
 			}
+			if (Math.abs(y - chestYApprox) < 0.06) {
+				chestHalfW = Math.max(chestHalfW, Math.abs(x))
+				chestHalfD = Math.max(chestHalfD, Math.abs(z))
+			}
 		}
 	}
 	if (!Number.isFinite(headTopLocal)) headTopLocal = local("mixamorigHead").y + 0.12
@@ -389,6 +398,8 @@ export function prepareRig(scene: THREE.Object3D): HumanRig {
 	if (hipHalfD === 0) hipHalfD = 0.12
 	if (waistHalfW === 0) waistHalfW = 0.14
 	if (waistHalfD === 0) waistHalfD = 0.11
+	if (chestHalfW === 0) chestHalfW = 0.17
+	if (chestHalfD === 0) chestHalfD = 0.11
 
 	const footL = local("mixamorigLeftFoot")
 	const footR = local("mixamorigRightFoot")
@@ -414,6 +425,8 @@ export function prepareRig(scene: THREE.Object3D): HumanRig {
 		hipHalfD,
 		waistHalfW,
 		waistHalfD,
+		chestHalfW,
+		chestHalfD,
 	}
 
 	const rig: HumanRig = {
@@ -813,24 +826,10 @@ export function buildAccessories(rig: HumanRig, outfit: Outfit) {
 		group.add(mesh)
 	}
 
-	if (g.belt) {
-		const belt = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 48, 1, true), rig.materials.cloth.accent)
-		belt.scale.set(a.waistHalfW + 0.018, 0.032 * h, a.waistHalfD + 0.018)
-		belt.position.set(0, a.waistY, 0)
-		add(belt, "accent")
-	}
-
-	if (g.pocket) {
-		const pocket = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), rig.materials.cloth.top)
-		pocket.scale.set(a.waistHalfW * 1.4, 0.085 * h, 0.03)
-		pocket.position.set(0, a.waistY - 0.09 * h, a.waistHalfD + 0.02)
-		add(pocket, "top")
-	}
-
 	if (g.hood) {
 		const hood = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 18), rig.materials.cloth.top)
-		hood.scale.set(0.1, 0.075, 0.07)
-		hood.position.set(0, a.neckY + 0.015, -0.075)
+		hood.scale.set(a.chestHalfW * 0.62, 0.055, a.chestHalfD * 0.5)
+		hood.position.set(0, a.neckY - 0.02, -a.chestHalfD * 0.75)
 		add(hood, "top")
 	}
 
@@ -843,7 +842,7 @@ export function buildAccessories(rig: HumanRig, outfit: Outfit) {
 		for (const sx of [-1, 1]) {
 			const lapel = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), rig.materials.cloth.accent)
 			lapel.scale.set(0.032, 0.15 * h, 0.016)
-			lapel.position.set(sx * 0.07, a.shoulderY - 0.085 * h, 0.1)
+			lapel.position.set(sx * 0.07, a.shoulderY - 0.085 * h, a.chestHalfD * 0.82)
 			lapel.rotation.z = sx * 0.26
 			add(lapel, "accent")
 		}
@@ -854,7 +853,11 @@ export function buildAccessories(rig: HumanRig, outfit: Outfit) {
 			const button = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 10), rig.materials.cloth.accent)
 			const r = 0.01
 			button.scale.set(r, r, r)
-			button.position.set(0, a.shoulderY - (0.1 + i * 0.065) * h, 0.115)
+			button.position.set(
+				0,
+				a.shoulderY - (0.1 + i * 0.065) * h,
+				a.chestHalfD * (0.94 - i * 0.14) + 0.02,
+			)
 			add(button, "accent")
 		}
 	}
